@@ -1,0 +1,160 @@
+/* General App Layout */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: var(--card-background);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.app-title {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.app-header nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.app-header nav a:hover {
+  color: var(--primary-color);
+}
+
+.app-header nav a.active-link {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.app-main {
+  flex-grow: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--card-background);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Item List */
+.item-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Item Card */
+.item-card {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 5px var(--shadow-color);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.item-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background-color: #eee;
+}
+
+.item-details {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.item-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.item-description {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.item-seller {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.item-details button {
+  margin-top: auto;
+}
+
+/* My Items Page */
+.my-items-page h2, .marketplace-page h2 {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.add-item-form {
+  background-color: var(--card-background);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.add-item-form h3 {
+    margin-bottom: 1rem;
+}
+
+.add-item-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.my-items-list h3 {
+    margin-bottom: 1rem;
+}
