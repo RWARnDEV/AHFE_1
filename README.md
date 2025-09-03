@@ -14,7 +14,7 @@ This application was built with React and Vite.
     ```bash
     npm run dev
     ```
-3.  Open your browser and navigate to the local URL provided (usually `http://localhost:5173`).
+3.  Open your browser and navigate to the local URL provided (usually `http://localhost:8080`).
 
 ---
 
