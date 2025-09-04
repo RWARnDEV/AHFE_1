@@ -2,6 +2,7 @@
 
 This project is a front-end prototype for a "Digital Yard Sale" web application. It is designed to simulate the user experience of posting, browsing, and purchasing items in an online marketplace. The application is built entirely with front-end technologies and uses mock data to showcase its features, making it ideal for usability testing without a backend.
 
+
 This application is built with vanilla HTML, CSS, and JavaScript, and is fully contained in a single file.
 
 ## How to Run the Application
@@ -88,8 +89,10 @@ The design and development of this prototype were guided by the provided usabili
 
 ### Performance & Reliability
 
+
 *   **Optimized for Speed**: As a single HTML file with no external dependencies, the application is extremely lightweight and loads instantly.
 *   **Stability**: The application's state management is handled by a simple JavaScript object and is fully self-contained, leading to reliable and predictable behavior during user testing.
+*   
 
 ### Simplicity & Minimalism
 
