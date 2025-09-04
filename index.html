@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Yard Sale</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f4f6f8;
+            --text-color: #333;
+            --card-background: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .app-header {
+            background-color: var(--card-background);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .app-header nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem;
+            margin-left: 1rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .app-header nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .app-header nav a.active-link {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .app-main {
+            flex-grow: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .app-footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--card-background);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .item-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .item-details {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .item-description {
+            flex-grow: 1;
+            margin: 0 0 1rem 0;
+            color: #555;
+        }
+
+        .item-seller {
+            font-size: 0.9rem;
+            color: #777;
+            margin: 0 0 1rem 0;
+        }
+
+        .item-details button {
+            margin-top: auto;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            font-weight: 500;
+            background-color: var(--primary-color);
+            color: white;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .item-details button:hover {
+            background-color: #2980b9;
+        }
+
+        .item-details button.remove-button {
+            background-color: #e74c3c;
+        }
+
+        .item-details button.remove-button:hover {
+            background-color: #c0392b;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .add-item-form {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+
+        .add-item-form h3 {
+            margin: 0 0 1rem 0;
+        }
+
+        .add-item-form select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+         .add-item-form button {
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            font-weight: 500;
+            background-color: var(--primary-color);
+            color: white;
+            transition: background-color 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">Digital Yard Sale</h1>
+            <nav>
+                <a id="nav-marketplace" class="active-link">Marketplace</a>
+                <a id="nav-my-items">My Items</a>
+            </nav>
+        </header>
+
+        <main class="app-main" id="main-content">
+            <!-- Content will be rendered here by JavaScript -->
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2024 Digital Yard Sale. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DATA ---
+            const marketplaceItems = [
+                { id: 1, name: 'Vintage Leather Jacket', description: 'A stylish vintage leather jacket from the 80s.', price: 75.00, imageUrl: 'https://via.placeholder.com/300x200.png?text=Leather+Jacket', seller: 'John D.' },
+                { id: 2, name: 'Antique Wooden Chair', description: 'A beautifully crafted antique wooden chair.', price: 120.00, imageUrl: 'https://via.placeholder.com/300x200.png?text=Antique+Chair', seller: 'Jane S.' },
+                { id: 3, name: 'Set of Classic Novels', description: 'A collection of 10 classic novels.', price: 45.00, imageUrl: 'https://via.placeholder.com/300x200.png?text=Classic+Novels', seller: 'Bookworm_123' },
+                { id: 4, name: 'Retro Bicycle', description: 'A charming retro-style bicycle with a basket.', price: 90.00, imageUrl: 'https://via.placeholder.com/300x200.png?text=Retro+Bicycle', seller: 'CycleFan' },
+            ];
+
+            const userAddableItems = [
+                { id: 101, name: 'Handmade Pottery Vase', description: 'A unique, handmade pottery vase.', price: 35.00, imageUrl: 'https://via.placeholder.com/300x200.png?text=Pottery+Vase', seller: 'CurrentUser' },
+                { id: 102, name: 'Acoustic Guitar', description: 'A full-sized acoustic guitar, great for beginners.', price: 80.00, imageUrl: 'https://via.placeholder.com/300x200.png?text=Acoustic+Guitar', seller: 'CurrentUser' },
+            ];
+
+            // --- STATE ---
+            const state = {
+                myItems: [],
+                currentView: 'marketplace' // 'marketplace' or 'my-items'
+            };
+
+            // --- DOM ELEMENTS ---
+            const mainContent = document.getElementById('main-content');
+            const navMarketplace = document.getElementById('nav-marketplace');
+            const navMyItems = document.getElementById('nav-my-items');
+
+            // --- RENDER FUNCTIONS ---
+            const createItemCard = (item, isMyItem) => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <img src="${item.imageUrl}" alt="${item.name}" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">${item.name}</h3>
+                        <p class="item-price">$${item.price.toFixed(2)}</p>
+                        <p class="item-description">${item.description}</p>
+                        <p class="item-seller">Sold by: ${item.seller}</p>
+                        ${isMyItem
+                            ? `<button class="remove-button" data-item-id="${item.id}">Remove</button>`
+                            : `<button data-item-id="${item.id}" data-action="buy">Buy Now</button>`
+                        }
+                    </div>
+                `;
+                return card;
+            };
+
+            const renderMarketplace = () => {
+                mainContent.innerHTML = `
+                    <h2>Browse the Marketplace</h2>
+                    <div class="item-list" id="marketplace-list"></div>
+                `;
+                const list = document.getElementById('marketplace-list');
+                marketplaceItems.forEach(item => {
+                    list.appendChild(createItemCard(item, false));
+                });
+            };
+
+            const renderMyItems = () => {
+                const addableOptions = userAddableItems.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
+                mainContent.innerHTML = `
+                    <h2>Manage Your Items for Sale</h2>
+                    <div class="add-item-form">
+                        <h3>Post a New Item</h3>
+                        <select id="item-to-add-select">
+                            ${addableOptions}
+                        </select>
+                        <button id="add-item-button">Add Item</button>
+                    </div>
+                    <div class="my-items-list-container">
+                        <h3>Your Listings</h3>
+                        <div class="item-list" id="my-items-list"></div>
+                    </div>
+                `;
+                const list = document.getElementById('my-items-list');
+                if (state.myItems.length === 0) {
+                    list.innerHTML = '<p>You have no items for sale. Add one above!</p>';
+                } else {
+                    state.myItems.forEach(item => {
+                        list.appendChild(createItemCard(item, true));
+                    });
+                }
+            };
+
+            const render = () => {
+                if (state.currentView === 'marketplace') {
+                    renderMarketplace();
+                    navMarketplace.classList.add('active-link');
+                    navMyItems.classList.remove('active-link');
+                } else {
+                    renderMyItems();
+                    navMarketplace.classList.remove('active-link');
+                    navMyItems.classList.add('active-link');
+                }
+            };
+
+            // --- EVENT HANDLERS ---
+            const handleNavClick = (view) => {
+                state.currentView = view;
+                render();
+            };
+
+            const handleAddItem = () => {
+                const select = document.getElementById('item-to-add-select');
+                const itemId = parseInt(select.value);
+
+                const alreadyExists = state.myItems.some(item => item.id === itemId);
+                if (alreadyExists) {
+                    alert('This item is already in your list.');
+                    return;
+                }
+
+                const itemToAdd = userAddableItems.find(item => item.id === itemId);
+                if (itemToAdd) {
+                    state.myItems.push(itemToAdd);
+                    render();
+                }
+            };
+
+            const handleRemoveItem = (itemId) => {
+                state.myItems = state.myItems.filter(item => item.id !== itemId);
+                render();
+            };
+
+            const handleBuyNow = (itemId) => {
+                const item = marketplaceItems.find(i => i.id === itemId) || userAddableItems.find(i => i.id === itemId);
+                alert(`You've added "${item.name}" to your cart! (Prototype)`);
+            };
+
+            // --- EVENT LISTENERS ---
+            navMarketplace.addEventListener('click', () => handleNavClick('marketplace'));
+            navMyItems.addEventListener('click', () => handleNavClick('my-items'));
+
+            mainContent.addEventListener('click', (e) => {
+                if (e.target.id === 'add-item-button') {
+                    handleAddItem();
+                }
+                const button = e.target.closest('button');
+                if (!button) return;
+
+                const itemId = parseInt(button.dataset.itemId);
+                if(button.classList.contains('remove-button')) {
+                    handleRemoveItem(itemId);
+                } else if (button.dataset.action === 'buy') {
+                    handleBuyNow(itemId);
+                }
+            });
+
+            // --- INITIALIZATION ---
+            render();
+        });
+    </script>
+</body>
+</html>
